@@ -1,0 +1,480 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f4f4;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: url('background.jpg') no-repeat center center/cover;
+  z-index: -3;
+  opacity: 0.95; /* brightness adjustment */
+}
+
+.main-nav {
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  flex-wrap: wrap;
+}
+
+.logo img {
+  height: 100px;
+}
+
+.icon {
+  font-size: 18px;       /* or 16px, depending on your design */
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.nav-links i {
+  font-size: 18px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.search-box {
+  display: flex;
+  flex: 1;
+  max-width: 400px;
+  margin: 10px;
+}
+
+.search-box input, .search-box button {
+  padding: 10px 15px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-box input {
+  border-radius: 25px 0 0 25px;
+  flex: 1;
+}
+
+.search-box button {
+  background: #20c261bd;
+  color: #fff;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-box button:hover {
+  background: #00FF00;
+}
+
+.nav-links a {
+  margin: 0 10px;
+  color: #20c261bd;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #00FF00;
+  transform: scale(1.05);
+}
+
+.menu-toggle {
+  font-size: 24px;
+  color: #20c261bd;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.menu-toggle:hover {
+  color: #00FF00;
+  transform: scale(1.05);
+}
+
+.category-bar {
+  background: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.category-bar a {
+  margin: 5px 10px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.category-bar a:hover {
+  background: #111;
+  color: #00FF00;
+  text-shadow: 0 0 3px #00FF00;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -270px;
+  width: 250px;
+  height: 100%;
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: 0.3s;
+  z-index: 999;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar a {
+  color: #20c261bd;
+  text-decoration: none;
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: #111;
+  color: #00FF00;
+  padding-left: 5px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 998;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 🔵 Login popup styles */
+.login-popup {
+  position: absolute;
+  z-index: 9999;
+  display: none;
+  animation: fadeInOut 15s forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-2px); }
+  40%  { transform: translateX(2px); }
+  60%  { transform: translateX(-2px); }
+  80%  { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+.popup-box {
+  background-color: #2874f0;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.shaking {
+  animation: shake 0.4s ease-in-out;
+}
+
+.popup-box p {
+  margin: 0 0 10px;
+}
+
+/* Little arrow */
+.popup-arrow {
+  position: absolute;
+  top: -6px;
+  left: 20px; /* Position arrow from left of box */
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #2874f0;
+}
+
+.login-btn {
+  display: inline-block;
+  background-color: white;
+  color: #2874f0;
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Fade out after 8 seconds */
+@keyframes fadeOut {
+  0%, 80% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .search-box, .nav-links {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .nav-links {
+    display: none;
+  }
+}
+
+
+/* ─── Login dropdown ─────────────────────────────────────────── */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.login-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;                 /* space between text & chevron */
+}
+.login-toggle .chevron {
+  font-size: 10px;          /* make the arrow nice and small */
+  transition: transform .25s;
+}
+
+/* menu panel */
+.login-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);    /* 8 px gap under the button  */
+  width: 220px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.15);
+  overflow: hidden;
+  display: none;            /* hidden by default */
+  z-index: 1000;
+}
+
+/* first row (“New customer?”) */
+.login-menu .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: 15px;              /* bigger text */
+  font-weight: 600;
+  background: #f5f5f5;
+  color: #212121;               /* dark gray like Flipkart */
+  border-bottom: 1px solid #ddd;
+}
+
+.login-menu .header a {
+  color: #2874f0 !important;    /* Flipkart blue */
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.login-menu .header a:hover {
+  text-decoration: underline;
+}
+
+/* each list item */
+.login-menu li:not(.header) a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+}
+.login-menu li:not(.header) a:hover {
+  background: #f0f0f0;
+}
+
+
+/* 🔹 Desktop: open on hover */
+@media (hover:hover) {
+  .dropdown:hover .login-menu        { display: block; }
+  .dropdown:hover .chevron           { transform: rotate(180deg); }
+}
+
+/* 🔹 Mobile/non‑hover devices: toggle on tap */
+@media (hover:none) {
+  .login-toggle.open + .login-menu   { display: block; }
+  .login-toggle.open .chevron        { transform: rotate(180deg); }
+}
+
+
+
+/* ─── Login page layout ─────────────────────────────────────── */
+.login-body {
+  background: #f1f3f6;          /* light grey like Flipkart */
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-wrapper {
+  width: 90%;
+  max-width: 900px;
+  background: #fff;
+  display: flex;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  overflow: hidden;
+}
+
+/* 🟦 Left side */
+.login-left {
+  flex: 0 0 38%;                /* ~340 px on desktop */
+  background: #2874f0;          /* Flipkart blue */
+  color: #fff;
+  padding: 48px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login-left h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+.login-left p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.login-illustration {
+  width: 100%;
+  max-width: 250px;
+  align-self: center;
+  margin-top: auto;
+}
+
+/* ⚪ Right side */
+.login-right {
+  flex: 1;
+  padding: 48px 40px 32px;
+  position: relative;
+}
+.login-form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #878787;
+}
+.login-form input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid #c2c2c2;
+  border-radius: 2px;
+  outline: none;
+}
+.login-form input:focus {
+  border-color: #2874f0;
+}
+.terms {
+  font-size: 12px;
+  color: #878787;
+  margin: 18px 0;
+}
+.terms a {
+  color: #2874f0;
+  text-decoration: none;
+}
+.otp-btn {
+  width: 100%;
+  padding: 14px 0;
+  background: #ff5722;          /* Flipkart orange */
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.otp-btn:hover { background: #e64a19; }
+
+.signup-footer {
+  text-align: center;
+  font-size: 14px;
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 100%;
+  color: #212121;
+}
+.signup-footer a {
+  color: #2874f0;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ─── Responsive tweaks ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .login-wrapper { flex-direction: column; }
+  .login-left   { flex: none; width: 100%; padding: 32px 24px; }
+  .login-right  { padding: 32px 24px 80px; }
+  .signup-footer { position: static; margin-top: 24px; }
+}
