@@ -93,19 +93,21 @@ CREATE TABLE order_items (
 
 -- Table 8: users
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    role VARCHAR(20) DEFAULT 'buyer',
+    role VARCHAR(50) DEFAULT 'buyer',
     role_status VARCHAR(20) DEFAULT 'approved',
-    role_request VARCHAR(20),
-    role_reason TEXT,
-    additional_info TEXT,
+    role_request VARCHAR(20) DEFAULT NULL,
+    role_reason TEXT DEFAULT NULL,
+    additional_info TEXT DEFAULT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
     UNIQUE KEY (email)
 );
+
 
 -- Table 9: parts
 CREATE TABLE parts (
